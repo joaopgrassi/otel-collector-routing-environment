@@ -1,0 +1,31 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+processors:
+  routing:
+    default_exporters: [jaeger]
+    attribute_source: resource
+    from_attribute: deployment.environment
+    table:
+      - value: Production
+        exporters: [jaeger]
+      - value: Staging
+        exporters: [logging]
+
+exporters:
+  jaeger:
+    endpoint: "jaeger:14250"
+    tls:
+      insecure: true
+  logging:
+    loglevel: debug
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [routing]
+      exporters: [logging,jaeger]
