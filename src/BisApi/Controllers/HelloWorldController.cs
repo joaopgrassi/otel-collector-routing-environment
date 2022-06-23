@@ -9,14 +9,10 @@ namespace BisApi.Controllers
         private readonly IWebHostEnvironment _environment;
 
         public HelloWorldController(IWebHostEnvironment environment)
-        {
-            _environment = environment;
-        }
+            => _environment = environment;
 
         [HttpGet]
         public IActionResult Get()
-        {
-            return Ok($"Hello from OTel: {_environment.EnvironmentName}");
-        }
+            => Ok($"Hello from OTel: {_environment.EnvironmentName}");
     }
 }

@@ -1,10 +1,8 @@
-using OpenTelemetry;
+﻿using OpenTelemetry;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 
@@ -22,6 +20,8 @@ builder.Services.AddOpenTelemetryTracing(options =>
         .AddAspNetCoreInstrumentation()
         .AddOtlpExporter(o =>
         {
+            // The collector is running together with the APIs
+            // inside docker-compose
             o.Endpoint = new Uri("http://otel-collector:4317");
             o.ExportProcessorType = ExportProcessorType.Simple;
         });

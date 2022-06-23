@@ -1,6 +1,7 @@
 version: '3.4'
 
 services:
+
   bis-api-prod:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
@@ -34,7 +35,6 @@ services:
     depends_on:
       - jaeger
 
-    # Jaeger
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
